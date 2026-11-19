@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint and typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+
+  test:
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node: [20, 22]
+        include:
+          - os: windows-latest
+            node: 22
+          - os: macos-latest
+            node: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Run the examples against the build
+        run: |
+          node examples/basic.mjs
+          node examples/commonjs.cjs
+          node examples/seed-database.mjs
+      - name: Smoke-test the CLI
+        shell: bash
+        run: |
+          node dist/esm/cli.js --version
+          node dist/esm/cli.js people --count 100 --seed 42 --format csv > people.csv
+          test "$(wc -l < people.csv)" -eq 101
+          node dist/esm/cli.js transactions -n 3 --seed 1 --format jsonl
+          node dist/esm/cli.js addresses -n 2 --division Sylhet
+          if node dist/esm/cli.js robots; then echo "expected a failure" && exit 1; fi
+      - name: Check the packed package
+        run: npm pack --dry-run

@@ -1,0 +1,32 @@
+name: Bug report
+description: Wrong, malformed or non-reproducible data, or a CLI problem
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: The command or code you ran (with --seed), and the output you got.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: faker-bd version
+      placeholder: '0.1.0'
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node version and OS
+      placeholder: 'Node 22.12, Ubuntu 24.04'
+    validations:
+      required: true
