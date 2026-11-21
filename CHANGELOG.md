@@ -7,6 +7,15 @@ changes in a minor or major release, and every such change is listed here.
 
 ## [Unreleased]
 
+### Added
+
+- `bdtInWords(amount, { lang?, only? })` writes Taka amounts in Bangla or
+  English words with the lakh and crore system, as on cheques and invoices:
+  `bdtInWords(12050)` gives `বারো হাজার পঞ্চাশ টাকা মাত্র`. Paisa are
+  included and rounded to two decimals.
+- `numberInWords(n, lang?)` for any non-negative safe integer, and
+  `BN_NUMBER_WORDS` (the Bangla words for 0 to 99).
+
 ## [0.1.0] - 2026-11-19
 
 ### Added

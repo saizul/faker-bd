@@ -158,6 +158,7 @@ names consistent; by default about 90% / 10%.
 import {
   parseMobile, isValidMobile,          // phone numbers
   formatBdt, groupLakh,                // money
+  bdtInWords, numberInWords,           // amounts in words
   toBanglaDigits, fromBanglaDigits,    // digits
   formatBanglaDate, formatBengaliDate, toBengaliCalendar, isoDate, isoDateTime,
   isFakeId,                            // fake ID marker
@@ -175,11 +176,21 @@ formatBdt(1234567.5); // '৳১২,৩৪,৫৬৭.৫০'
 formatBdt(1234567.5, { digits: 'en' }); // '৳12,34,567.50'
 formatBdt(1500, { symbol: false, decimals: 0 }); // '১,৫০০'
 
+bdtInWords(120050); // 'এক লক্ষ বিশ হাজার পঞ্চাশ টাকা মাত্র'
+bdtInWords(1500.5, { lang: 'en' }); // 'One Thousand Five Hundred Taka and Fifty Paisa Only'
+bdtInWords(25, { only: false }); // 'পঁচিশ টাকা'
+numberInWords(1_500_000_000); // 'এক শত পঞ্চাশ কোটি'
+
 const d = new Date('2026-12-16T00:00:00+06:00');
 formatBanglaDate(d, { weekday: true }); // 'বুধবার, ১৬ ডিসেম্বর ২০২৬'
 formatBengaliDate(d); // '১ পৌষ ১৪৩৩ বঙ্গাব্দ'
 toBengaliCalendar(d); // { year: 1433, month: 9, day: 1, monthNameBn: 'পৌষ', monthNameEn: 'Poush' }
 ```
+
+`bdtInWords()` writes Taka amounts the way cheques, money receipts and
+invoices in Bangladesh do, with the lakh and crore system and paisa rounded
+to two decimals. `numberInWords(n, 'bn' | 'en')` does the same for any whole
+number, and `BN_NUMBER_WORDS` is the list of Bangla words for 0 to 99.
 
 Dates are read in Bangladesh Standard Time (UTC+06:00, no daylight saving)
 unless you pass `{ offsetMinutes }`. The Bengali calendar follows the revised
@@ -302,7 +313,6 @@ Ideas, many of them good first issues (see [CONTRIBUTING.md](CONTRIBUTING.md)):
 
 - [ ] Upazila-level post office codes
 - [ ] All upazilas of each district, and city corporation areas (Dhaka North / South wards)
-- [ ] Amounts in words (`এক লক্ষ বিশ হাজার টাকা মাত্র`)
 - [ ] Bank account and routing-number-shaped fake values, clearly marked
 - [ ] More names, spelling variants (Hossain / Hussain / Hosen) and Buddhist and Christian naming traditions
 - [ ] A `--locale en|bn` CLI option that keeps only one script
