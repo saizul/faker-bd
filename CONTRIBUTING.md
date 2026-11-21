@@ -85,25 +85,22 @@ examples/        runnable ESM and CommonJS examples
 
 ## Good first issues
 
-1. **Amounts in words**: add `bdtInWords(12050)` →
-   `বারো হাজার পঞ্চাশ টাকা মাত্র` in a new `src/words.ts`, export it from
-   `src/index.ts` and add tests for lakh and crore.
-2. **More upazilas**: complete the upazila list of one district you know well
+1. **More upazilas**: complete the upazila list of one district you know well
    in `src/data/geo.ts` and update the count check in `test/geo.test.ts`.
-3. **Spelling variants**: let `name()` sometimes return `Hussain` or `Hosen`
+2. **Spelling variants**: let `name()` sometimes return `Hussain` or `Hosen`
    for `Hossain`, behind an option `variants: true`, in `src/faker.ts`.
-4. **`--locale en|bn` flag**: drop the other script's fields from CLI output.
+3. **`--locale en|bn` flag**: drop the other script's fields from CLI output.
    Change `src/cli/run.ts` (filter keys ending in `.en` / `.bn`) and add tests
    in `test/cli.test.ts`.
-5. **Vehicle plates**: `faker.vehiclePlate()` →
+4. **Vehicle plates**: `faker.vehiclePlate()` →
    `{ en: 'Dhaka Metro-Ga 12-3456', bn: 'ঢাকা মেট্রো-গ ১২-৩৪৫৬' }` and an
    `ids`-style dataset in `src/datasets.ts`.
-6. **CSV formula protection**: add a `--safe-csv` flag that prefixes values
+5. **CSV formula protection**: add a `--safe-csv` flag that prefixes values
    starting with `=`, `+`, `-` or `@` with `'`, in `src/csv.ts` and
    `src/cli/run.ts`. Note that E.164 phone numbers start with `+`.
-7. **Landline numbers**: `faker.landline()` for Dhaka `02-` and district area
+6. **Landline numbers**: `faker.landline()` for Dhaka `02-` and district area
    codes, with a parser test in `test/faker.test.ts`.
-8. **A Jest/Vitest example**: add `examples/vitest-fixture.mjs` that shows a
+7. **A Jest/Vitest example**: add `examples/vitest-fixture.mjs` that shows a
    seeded fixture per test file.
 
 ## Pull requests

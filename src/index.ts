@@ -61,3 +61,4 @@ export {
 } from './phone.js';
 export { Random, randomSeed, type Seed } from './random.js';
 export { VERSION } from './version.js';
+export { BN_NUMBER_WORDS, type BdtInWordsOptions, bdtInWords, numberInWords } from './words.js';
